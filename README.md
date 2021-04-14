@@ -1,23 +1,20 @@
 # ipssi-ai-pacman
 # Etapes pour utiliser cette application (Python >= 3.8)
 
-## 1 Initialisez le docker-compose
-`docker-compose up`
-
-## 2 Initialisez votre environnement virtuel
+## 1 Initialisez votre environnement virtuel
 `py -m venv ./venv`
 
-## 3 Démarrez votre environnement virtuel
+## 2 Démarrez votre environnement virtuel
 ```
 .\venv\Scripts\Activate.ps1 (PowerShell)
 .\venv\Scripts\Activate.bat (Windows)
 source ./venv/bin/activate (MAC/Linux)
 ```
 
-## 4 Installez les dépendances du projet
+## 3 Installez les dépendances du projet
 `pip install -r requirements.txt`
 
-## 5 Lancer le projet et l'import des datas
+## 4 Lancer l'applcation
 `python|py|python3 main.py`
 
 
