@@ -61,7 +61,10 @@ class App:
     def load(self):
         self.background = pygame.image.load('maze.png')
         self.background = pygame.transform.scale(self.background, (MAZE_WIDTH, MAZE_HEIGHT))
-
+        
+        self.title = pygame.image.load('pacman_logo.png')
+        self.title = pygame.transform.scale(self.title, (MAZE_WIDTH,200))
+  
         # Opening walls file
         # Creating walls list with co-ords of walls
         # stored as  a vector
@@ -119,7 +122,7 @@ class App:
 
     def start_events(self):
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
                 self.running = False
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 self.state = 'playing'
@@ -129,10 +132,17 @@ class App:
 
     def start_draw(self):
         self.screen.fill(BLACK)
-        self.draw_text('PUSH SPACE BAR', self.screen, [
+        
+        self.screen.blit(self.title, (TOP_BOTTOM_BUFFER//2, TOP_BOTTOM_BUFFER//2))
+
+        self.draw_text('SPACE BAR : START', self.screen, [
                        WIDTH//2, HEIGHT//2-50], START_TEXT_SIZE, (170, 132, 58), START_FONT, centered=True)
         self.draw_text('1 PLAYER ONLY', self.screen, [
                        WIDTH//2, HEIGHT//2+50], START_TEXT_SIZE, (44, 167, 198), START_FONT, centered=True)
+        self.draw_text('PYTHON - IPSSI 2021 ', self.screen, [
+                       WIDTH//2, HEIGHT - 30], 14, WHITE, START_FONT, centered=True)
+        self.draw_text('Q : Quit', self.screen, [WIDTH - TOP_BOTTOM_BUFFER - 50, 0], 18, WHITE, START_FONT)
+
         # self.draw_text('HIGH SCORE', self.screen, [4, 0],
         #                START_TEXT_SIZE, (255, 255, 255), START_FONT)
         pygame.display.update()
@@ -152,6 +162,9 @@ class App:
                     self.player.move(vec(0, -1))
                 if event.key == pygame.K_DOWN:
                     self.player.move(vec(0, 1))
+                if event.key == pygame.K_q:
+                    self.running = False
+
 
     def playing_update(self):
         self.player.update()
@@ -167,9 +180,10 @@ class App:
         self.screen.blit(self.background, (TOP_BOTTOM_BUFFER//2, TOP_BOTTOM_BUFFER//2))
         self.draw_coins()
         # self.draw_grid()
-        self.draw_text('CURRENT SCORE: {}'.format(self.player.current_score),
-                       self.screen, [60, 0], 18, WHITE, START_FONT)
+        self.draw_text('SCORE: {}'.format(self.player.current_score),
+                       self.screen, [25, 0], 18, WHITE, START_FONT)
         self.draw_text('REACTION TIME: ', self.screen, [20, HEIGHT-25], 18, WHITE, START_FONT)
+        self.draw_text('Q : Quit', self.screen, [WIDTH - TOP_BOTTOM_BUFFER - 50, 0], 18, WHITE, START_FONT)
 
         for i in self.enemies:
             if i.personality == 'speedy':
@@ -199,13 +213,13 @@ class App:
         for coin in self.coins:
             pygame.draw.circle(self.screen, (124, 123, 7),
                                (int(coin.x*self.cell_width)+self.cell_width//2+TOP_BOTTOM_BUFFER//2,
-                                int(coin.y*self.cell_height)+self.cell_height//2+TOP_BOTTOM_BUFFER//2), 5)
+                                int(coin.y*self.cell_height)+self.cell_height//2+TOP_BOTTOM_BUFFER//2), 4)
 
 ########################### GAME OVER FUNCTIONS ################################
 
     def game_over_events(self):
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
                 self.running = False
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 self.reset()
@@ -217,11 +231,11 @@ class App:
 
     def game_over_draw(self):
         self.screen.fill(BLACK)
-        quit_text = "Press the escape button to QUIT"
-        again_text = "Press SPACE bar to PLAY AGAIN"
-        self.draw_text("GAME OVER", self.screen, [WIDTH//2, 100],  52, RED, "arial", centered=True)
+        again_text = "SPACE BAR : PLAY AGAIN"
+        
+        self.draw_text("GAME OVER", self.screen, [WIDTH//2, HEIGHT//2 - 150],  52, RED, "arial", centered=True)
+        self.draw_text('Q : Quit', self.screen, [WIDTH - TOP_BOTTOM_BUFFER - 50, 0], 18, WHITE, START_FONT)
+
         self.draw_text(again_text, self.screen, [
-                       WIDTH//2, HEIGHT//2],  36, (190, 190, 190), "arial", centered=True)
-        self.draw_text(quit_text, self.screen, [
-                       WIDTH//2, HEIGHT//1.5],  36, (190, 190, 190), "arial", centered=True)
+                       WIDTH//2, HEIGHT//2-50], START_TEXT_SIZE, (170, 132, 58), START_FONT, centered=True)
         pygame.display.update()

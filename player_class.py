@@ -36,8 +36,11 @@ class Player:
                                                             int(self.pix_pos.y)), self.app.cell_width//2-2)
 
         # Drawing player lives
-        for x in range(self.lives):
-            pygame.draw.circle(self.app.screen, PLAYER_COLOUR, (WIDTH//2+60 + 20*x, 15), 7)
+        # for x in range(self.lives):
+        #     pygame.draw.circle(self.app.screen, PLAYER_COLOUR, (25 + 20*x, HEIGHT//2), 7)
+        pygame.draw.circle(self.app.screen, PLAYER_COLOUR, (40, HEIGHT//2 - 25), 10)
+        self.app.draw_text('x {}'.format(self.lives), self.app.screen, [ 30 + 25, HEIGHT//2- 35 ], 18, WHITE, START_FONT)
+
 
         # Drawing the grid pos rect
         # pygame.draw.rect(self.app.screen, RED, (self.grid_pos[0]*self.app.cell_width+TOP_BOTTOM_BUFFER//2,
