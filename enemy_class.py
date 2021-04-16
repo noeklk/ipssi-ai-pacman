@@ -159,14 +159,13 @@ class Enemy:
 
     def set_colour(self):
         if self.number == 0:
-            return (120, 255, 254)
+            return BLUE
         if self.number == 1:
-            return (251, 218, 98)
+            return YELLOW
         if self.number == 2:
-            return (189, 29, 29)
+            return RED
         if self.number == 3:
-            return (255, 163, 214)
-            #FFA3D6
+            return PINK
 
     def set_personality(self):
         if self.number == 0:
