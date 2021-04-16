@@ -14,7 +14,7 @@ class Player:
         self.able_to_move = True
         self.current_score = 0
         self.speed = 2
-        self.lives = 1
+        self.lives = 3
 
     def update(self):
         if self.able_to_move:
@@ -37,7 +37,7 @@ class Player:
 
         # Drawing player lives
         for x in range(self.lives):
-            pygame.draw.circle(self.app.screen, PLAYER_COLOUR, (WIDTH//2+60 + 20*x, 15), 7)
+            pygame.draw.circle(self.app.screen, PLAYER_COLOUR, (WIDTH//2+120 + 20*x, 15), 7)
 
         # Drawing the grid pos rect
         # pygame.draw.rect(self.app.screen, RED, (self.grid_pos[0]*self.app.cell_width+TOP_BOTTOM_BUFFER//2,

@@ -70,11 +70,13 @@ class Enemy:
     def move(self):
         if self.personality == "random":
             self.direction = self.get_random_direction()
+
         if self.personality == "slow":
             tic = time.perf_counter()
             self.direction = self.get_path_direction(self.target)
             toc = time.perf_counter()
             self.timing_to_move(tic, toc)
+
         if self.personality == "speedy":
             tic = time.perf_counter()
             self.direction = self.get_path_direction(self.target)
@@ -82,7 +84,10 @@ class Enemy:
             self.timing_to_move(tic, toc)
 
         if self.personality == "scared":
+            tic = time.perf_counter()
             self.direction = self.get_path_direction(self.target)
+            toc = time.perf_counter()
+            self.timing_to_move(tic, toc)
 
     def get_path_direction(self, target):
         next_cell = self.find_next_cell_in_path(target)
@@ -96,7 +101,7 @@ class Enemy:
         return path[1]
 
     def timing_to_move(self, tic, toc):
-        self.timing_to_move_value = f"{toc - tic:0.4f}"
+        self.timing_to_move_value = f"{(toc - tic)*1000:0.2f}"
 
     def BFS(self, start, target):
         grid = [[0 for x in range(28)] for x in range(30)]
@@ -154,13 +159,14 @@ class Enemy:
 
     def set_colour(self):
         if self.number == 0:
-            return (43, 78, 203)
+            return (120, 255, 254)
         if self.number == 1:
-            return (197, 200, 27)
+            return (251, 218, 98)
         if self.number == 2:
             return (189, 29, 29)
         if self.number == 3:
-            return (215, 159, 33)
+            return (255, 163, 214)
+            #FFA3D6
 
     def set_personality(self):
         if self.number == 0:

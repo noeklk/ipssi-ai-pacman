@@ -169,13 +169,19 @@ class App:
         # self.draw_grid()
         self.draw_text('CURRENT SCORE: {}'.format(self.player.current_score),
                        self.screen, [60, 0], 18, WHITE, START_FONT)
-        self.draw_text('REACTION TIME: ', self.screen, [20, HEIGHT-25], 18, WHITE, START_FONT)
+        #self.draw_text('REACTION TIME: ', self.screen, [20, HEIGHT-25], 18, WHITE, START_FONT)
+        
 
         for i in self.enemies:
             if i.personality == 'speedy':
-                self.draw_text('SPEEDY[{}s]'.format(i.timing_to_move_value), self.screen, [WIDTH//2-75, HEIGHT-25], 18, WHITE, START_FONT)
+                pygame.draw.circle(self.screen, i.colour, [25, int(HEIGHT//2-55)], i.radius)
+                self.draw_text("{}ms".format(i.timing_to_move_value), self.screen, [40, int(HEIGHT//2-68)], 15, WHITE, START_FONT)
             if i.personality == 'slow':
-                self.draw_text('SLOW[{}s]'.format(i.timing_to_move_value), self.screen, [WIDTH//2+120, HEIGHT-25], 18, WHITE, START_FONT)    
+                pygame.draw.circle(self.screen, i.colour, [25, int(HEIGHT//2-25)], i.radius)
+                self.draw_text("{}ms".format(i.timing_to_move_value), self.screen, [40, int(HEIGHT//2-38)], 15, WHITE, START_FONT)    
+            if i.personality == 'scared':
+                pygame.draw.circle(self.screen, i.colour, [25, int(HEIGHT//2+5)], i.radius)
+                self.draw_text("{}ms".format(i.timing_to_move_value), self.screen, [40, int(HEIGHT//2-8)], 15, WHITE, START_FONT)
         
         self.player.draw()
         for enemy in self.enemies:
