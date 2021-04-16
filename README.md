@@ -22,7 +22,7 @@ source ./venv/bin/activate (MAC/Linux)
 - [Redirection vers les tutos youtube de l'application](hhttps://www.youtube.com/watch?v=ZdwRcte00oU&list=PLryDJVmh-ww3AMl8NSjp9YygWWTOfePu7&index=21)
 
 ## Credits & Licence
-29/05/2020 - GPL3 Licence (Open Source)
+16/04/2021 - GPL3 Licence (Open Source)
 
 **Noé ABDEL KALEK**  - *Developer (Project Manager)*
 
