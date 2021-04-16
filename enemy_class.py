@@ -1,5 +1,6 @@
 import pygame
 import random
+import time
 from settings import *
 
 vec = pygame.math.Vector2
@@ -18,6 +19,7 @@ class Enemy:
         self.personality = self.set_personality()
         self.target = None
         self.speed = self.set_speed()
+        self.timing_to_move_value = 0
 
     def update(self):
         self.target = self.set_target()
@@ -69,9 +71,16 @@ class Enemy:
         if self.personality == "random":
             self.direction = self.get_random_direction()
         if self.personality == "slow":
+            tic = time.perf_counter()
             self.direction = self.get_path_direction(self.target)
+            toc = time.perf_counter()
+            self.timing_to_move(tic, toc)
         if self.personality == "speedy":
+            tic = time.perf_counter()
             self.direction = self.get_path_direction(self.target)
+            toc = time.perf_counter()
+            self.timing_to_move(tic, toc)
+
         if self.personality == "scared":
             self.direction = self.get_path_direction(self.target)
 
@@ -85,6 +94,9 @@ class Enemy:
         path = self.BFS([int(self.grid_pos.x), int(self.grid_pos.y)], [
                         int(target[0]), int(target[1])])
         return path[1]
+
+    def timing_to_move(self, tic, toc):
+        self.timing_to_move_value = f"{toc - tic:0.4f}"
 
     def BFS(self, start, target):
         grid = [[0 for x in range(28)] for x in range(30)]
@@ -116,6 +128,7 @@ class Enemy:
                 if step["Next"] == target:
                     target = step["Current"]
                     shortest.insert(0, step["Current"])
+
         return shortest
 
     def get_random_direction(self):
@@ -158,3 +171,5 @@ class Enemy:
             return "random"
         else:
             return "scared"
+
+    
